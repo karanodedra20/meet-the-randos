@@ -1,9 +1,15 @@
-import { Component, input, computed, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  input,
+  computed,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { UserGroup } from '../../models/user-group.model';
 import { User } from '../../models/user.model';
 import { UserItemComponent } from '../user-item/user-item.component';
 import { UserGroupHeaderComponent } from '../user-group-header/user-group-header.component';
+import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
 
 /**
  * Represents an item in the virtual scroll list
@@ -21,7 +27,12 @@ interface ListItem {
   standalone: true,
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
-  imports: [UserItemComponent, UserGroupHeaderComponent, ScrollingModule],
+  imports: [
+    UserItemComponent,
+    UserGroupHeaderComponent,
+    ScrollingModule,
+    SkeletonLoaderComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent {
@@ -31,23 +42,17 @@ export class UserListComponent {
 
   readonly itemSize = 60;
 
-  /**
-   * Flattens groups into a single array with headers and users
-   * for virtual scrolling
-   */
   flattenedItems = computed<ListItem[]>(() => {
     const items: ListItem[] = [];
     const groups = this.groups();
 
     for (const group of groups) {
-      // Add group header
       items.push({
         type: 'header',
         group,
         groupLabel: group.label,
       });
 
-      // Add all users in this group
       for (const user of group.users) {
         items.push({
           type: 'user',

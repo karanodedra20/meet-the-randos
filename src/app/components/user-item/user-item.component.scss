@@ -1,29 +1,46 @@
-@import 'ease/ease-import.scss';
+@import "ease/ease-import.scss";
 
 :host {
   display: block;
-  height: 60px;
+  min-height: 60px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: $color-smoke;
+  }
+
+  &.expanded {
+    height: auto;
+    background-color: $color-ice;
+  }
 
   .user-item {
-    align-items: center;
+    display: flex;
+    flex-direction: column;
     border-bottom: 1px solid $color-fog;
     box-sizing: border-box;
-    display: flex;
-    flex-wrap: nowrap;
-    height: 100%;
-    padding: 12px;
     color: $color-night;
+
+    &__main {
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      min-height: 60px;
+      padding: $spacing-m;
+    }
 
     &__image {
       border-radius: 20%;
       height: 40px;
       width: 40px;
+      margin-right: $spacing-m;
     }
 
     &__name,
     &__email,
     &__phone {
-      margin: 12px;
+      margin: 0 $spacing-m;
       overflow: hidden;
       text-overflow: ellipsis;
       text-align: left;
@@ -33,20 +50,59 @@
     &__name {
       flex: 1;
       min-width: 100px;
+      font-weight: $font-weight-semi;
     }
 
     &__email {
       width: 220px;
+      color: $color-steel;
     }
 
     &__phone {
       width: 110px;
+      color: $color-steel;
     }
 
     &__nat {
-      margin-left: 12px;
+      margin-left: $spacing-m;
       text-align: right;
       width: 80px;
+      font-weight: $font-weight-semi;
+      color: $color-blue-900;
+    }
+
+    &__details {
+      overflow: hidden;
+      padding: 0 $spacing-l $spacing-l $spacing-l;
+      background-color: $color-white;
+      border-top: 1px solid $color-sky;
+
+      .details-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-l;
+        padding: $spacing-l 0;
+
+        .detail-item {
+          display: flex;
+          flex-direction: column;
+          gap: $spacing-xs;
+
+          .detail-label {
+            font-size: $font-size-small;
+            font-weight: $font-weight-bold;
+            color: $color-steel;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
+
+          .detail-value {
+            font-size: $font-size-normal;
+            color: $color-night;
+            line-height: $line-height-normal;
+          }
+        }
+      }
     }
   }
 }

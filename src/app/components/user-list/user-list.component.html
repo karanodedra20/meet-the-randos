@@ -1,27 +1,22 @@
 @if (isLoading()) {
 <article class="user-list">
-  <div class="loading-state">
-    <p>Loading users...</p>
-  </div>
+  <app-skeleton-loader />
 </article>
 } @else if (flattenedItems().length) {
 <article class="user-list">
   <cdk-virtual-scroll-viewport [itemSize]="itemSize" class="viewport">
     <div *cdkVirtualFor="let item of flattenedItems()" class="list-item">
-      @switch (item.type) {
-        @case ('header') {
-          <app-user-group-header
-            [label]="item.group!.label"
-            [count]="item.group!.count"
-          />
-        }
-        @case ('user') {
-          <app-user-item
-            [user]="item.user!"
-            [nationalityCounts]="nationalityCounts()"
-          />
-        }
-      }
+      @switch (item.type) { @case ('header') {
+      <app-user-group-header
+        [label]="item.group!.label"
+        [count]="item.group!.count"
+      />
+      } @case ('user') {
+      <app-user-item
+        [user]="item.user!"
+        [nationalityCounts]="nationalityCounts()"
+      />
+      } }
     </div>
   </cdk-virtual-scroll-viewport>
 </article>

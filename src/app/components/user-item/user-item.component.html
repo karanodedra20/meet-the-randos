@@ -1,11 +1,70 @@
 <div class="user-item">
-  <img class="user-item__image" [src]="user().imageSrc" />
+  <div class="user-item__main">
+    <img class="user-item__image" [src]="user().imageSrc" />
 
-  <p class="user-item__name">{{ user().firstname }} {{ user().lastname }}</p>
+    <p class="user-item__name">{{ user().firstname }} {{ user().lastname }}</p>
 
-  <p class="user-item__email">{{ user().email }}</p>
+    <p class="user-item__email">{{ user().email }}</p>
 
-  <p class="user-item__phone">{{ user().phone }}</p>
+    <p class="user-item__phone">{{ user().phone }}</p>
 
-  <p class="user-item__nat">{{ user().nat }} ({{ nationalityCount() }})</p>
+    <p class="user-item__nat">{{ user().nat }} ({{ nationalityCount() }})</p>
+  </div>
+
+  <div
+    class="user-item__details"
+    [@expandCollapse]="isExpanded() ? 'expanded' : 'collapsed'"
+  >
+    <div class="details-grid">
+      <div class="detail-item">
+        <span class="detail-label">Age:</span>
+        <span class="detail-value">{{ user().age }} years</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">Date of Birth:</span>
+        <span class="detail-value">{{ user().dateOfBirth }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">Username:</span>
+        <span class="detail-value">{{ user().login?.username }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">Cell Phone:</span>
+        <span class="detail-value">{{ user().cell }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">Address:</span>
+        <span class="detail-value">
+          {{ user().address?.street }}<br />
+          {{ user().address?.city }}, {{ user().address?.state }}<br />
+          {{ user().address?.country }} {{ user().address?.postcode }}
+        </span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">Coordinates:</span>
+        <span class="detail-value">
+          {{ user().address?.coordinates?.latitude }},
+          {{ user().address?.coordinates?.longitude }}
+        </span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">Timezone:</span>
+        <span class="detail-value">
+          {{ user().address?.timezone?.offset }}<br />
+          <small>{{ user().address?.timezone?.description }}</small>
+        </span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">Registered:</span>
+        <span class="detail-value">{{ user().registeredDate }}</span>
+      </div>
+    </div>
+  </div>
 </div>

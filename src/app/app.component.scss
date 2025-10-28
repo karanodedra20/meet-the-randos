@@ -1,10 +1,60 @@
+@import 'ease/ease-import.scss';
+
 :host {
   header {
-    height: 200px;
+    min-height: 200px;
     text-align: center;
     box-sizing: border-box;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: $spacing-xl;
+    padding: $spacing-xl;
+
+    .grouping-controls {
+      display: flex;
+      align-items: center;
+      gap: $spacing-m;
+
+      label {
+        font-size: $font-size-normal;
+        font-weight: $font-weight-semi;
+        color: $color-night;
+      }
+
+      .grouping-btn {
+        background-color: $color-white;
+        border: 2px solid $color-sky;
+        border-radius: $border-size-m;
+        color: $color-steel;
+        cursor: pointer;
+        font-size: $font-size-normal;
+        font-weight: $font-weight-semi;
+        padding: $spacing-s $spacing-l;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: $color-ice;
+          border-color: $color-fog;
+        }
+
+        &.active {
+          background-color: $color-blue-900;
+          border-color: $color-blue-900;
+          color: $color-white;
+        }
+
+        &:active {
+          transform: scale(0.98);
+        }
+      }
+
+      .loading-indicator {
+        font-size: $font-size-small;
+        color: $color-steel;
+        font-style: italic;
+      }
+    }
   }
 }

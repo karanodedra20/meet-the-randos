@@ -16,19 +16,13 @@ export class User {
   email?: string
   phone?: string
   image?: string
+  imageSrc?: string
+  age?: number
   nat?: string
   login?: LoginInfo
 
   constructor(data: Partial<User> = {}) {
     Object.assign(this, data)
-  }
-
-  /**
-   * Gets an image source url with a query string to prevent caching
-   * Note: Do not remove the query string.
-   */
-  get imageSrc(): string {
-    return `${this.image}?id=${this.login?.uuid}`
   }
 
   /**
@@ -43,6 +37,8 @@ export class User {
       email: user.email,
       phone: user.phone,
       image: user.picture.medium,
+      imageSrc: `${user.picture.medium}?id=${user.login.uuid}`,
+      age: user.dob.age,
       nat: user.nat,
       login: user.login
     }))

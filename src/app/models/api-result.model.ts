@@ -10,12 +10,18 @@ export interface Picture {
   thumbnail: string
 }
 
+export interface Dob {
+  date: string
+  age: number
+}
+
 export interface UserResult {
   name: Name
   email: string
   phone: string
   picture: Picture
   nat: string
+  dob: Dob
   login: {
     uuid: string
     username: string

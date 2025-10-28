@@ -15,5 +15,22 @@
       height: 600px;
       width: 100%;
     }
+
+    .list-item {
+      display: block;
+      height: 60px;
+    }
+
+    .loading-state,
+    .empty-state {
+      padding: $spacing-xxxl;
+      text-align: center;
+      color: $color-steel;
+
+      p {
+        font-size: $font-size-normal;
+        margin: 0;
+      }
+    }
   }
 }

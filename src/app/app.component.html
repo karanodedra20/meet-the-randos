@@ -1,8 +1,37 @@
 <header>
   <img src="logo.svg" alt="awork logo" />
+
+  <div class="grouping-controls">
+    <label>Group by:</label>
+    <button
+      class="grouping-btn"
+      [class.active]="currentStrategy() === GroupingStrategy.ALPHABETICAL"
+      (click)="changeGrouping(GroupingStrategy.ALPHABETICAL)"
+    >
+      A-Z
+    </button>
+    <button
+      class="grouping-btn"
+      [class.active]="currentStrategy() === GroupingStrategy.AGE"
+      (click)="changeGrouping(GroupingStrategy.AGE)"
+    >
+      Age
+    </button>
+    <button
+      class="grouping-btn"
+      [class.active]="currentStrategy() === GroupingStrategy.NATIONALITY"
+      (click)="changeGrouping(GroupingStrategy.NATIONALITY)"
+    >
+      Nationality
+    </button>
+    @if (isGrouping()) {
+      <span class="loading-indicator">Grouping...</span>
+    }
+  </div>
 </header>
 
 <app-user-list
-  [users]="users()"
+  [groups]="groups()"
   [nationalityCounts]="nationalityCounts()"
+  [isLoading]="isLoading() || isGrouping()"
 ></app-user-list>

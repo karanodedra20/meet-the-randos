@@ -8,10 +8,9 @@
   right: 0;
   bottom: 0;
   z-index: 200;
-  background: linear-gradient(180deg, $color-white 0%, rgba(#fff, 0.92) 100%);
   backdrop-filter: blur(6px);
   border-top: 2px solid $color-fog;
-  box-shadow: 0 -6px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.08);
   /* Prevent content jump on iOS safe areas */
   padding-bottom: env(safe-area-inset-bottom, 0);
 }

@@ -24,6 +24,7 @@
       height: calc(100vh - 220px);
       min-height: 600px;
       width: 100%;
+      -webkit-overflow-scrolling: touch;
 
       &.hide-scrollbar {
         &::-webkit-scrollbar {

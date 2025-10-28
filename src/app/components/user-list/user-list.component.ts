@@ -37,9 +37,25 @@ export class UserListComponent implements OnDestroy {
   isLoading = input<boolean>(false);
   isPaginated = input<boolean>(false);
 
-  readonly itemSize = 320;
+  private readonly desktopCardsPerRow = 3;
+  private readonly tabletCardsPerRow = 2;
+  private readonly mobileCardsPerRow = 1;
 
-  readonly cardsPerRow = 3;
+  private readonly viewportWidth = signal<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 1400
+  );
+
+  readonly cardsPerRow = computed<number>(() => {
+    const w = this.viewportWidth();
+    if (w <= 540) return this.mobileCardsPerRow;
+    if (w <= 810) return this.tabletCardsPerRow;
+    if (w <= 1080) return this.tabletCardsPerRow;
+    return this.desktopCardsPerRow;
+  });
+
+  readonly itemSize = 320;
+  readonly minBufferPx = 640; // 2 * itemSize
+  readonly maxBufferPx = 1280; // 4 * itemSize
 
   /**
    * Converts groups into virtual scroll rows
@@ -57,10 +73,11 @@ export class UserListComponent implements OnDestroy {
       });
 
       const users = group.users;
-      for (let i = 0; i < users.length; i += this.cardsPerRow) {
+      const perRow = this.cardsPerRow();
+      for (let i = 0; i < users.length; i += perRow) {
         rows.push({
           type: 'users',
-          users: users.slice(i, i + this.cardsPerRow),
+          users: users.slice(i, i + perRow),
           groupLabel: group.label,
         });
       }
@@ -82,10 +99,11 @@ export class UserListComponent implements OnDestroy {
     for (const group of groups) {
       rows.push({ type: 'header', group, groupLabel: group.label });
       const users = group.users;
-      for (let i = 0; i < users.length; i += this.cardsPerRow) {
+      const perRow = this.cardsPerRow();
+      for (let i = 0; i < users.length; i += perRow) {
         rows.push({
           type: 'users',
-          users: users.slice(i, i + this.cardsPerRow),
+          users: users.slice(i, i + perRow),
           groupLabel: group.label,
         });
       }
@@ -101,11 +119,29 @@ export class UserListComponent implements OnDestroy {
     this.hideScrollbarTimeoutId = setTimeout(() => {
       this.hideScrollbar.set(true);
     }, this.hideDelayMs);
+
+    if (typeof window !== 'undefined') {
+      let pending = false;
+      const onResize = () => {
+        if (pending) return;
+        pending = true;
+        requestAnimationFrame(() => {
+          this.viewportWidth.set(window.innerWidth);
+          pending = false;
+        });
+      };
+      window.addEventListener('resize', onResize);
+      this._cleanupResize = () =>
+        window.removeEventListener('resize', onResize);
+    }
   }
 
   ngOnDestroy(): void {
     if (this.hideScrollbarTimeoutId) {
       clearTimeout(this.hideScrollbarTimeoutId);
     }
+    if (this._cleanupResize) this._cleanupResize();
   }
+
+  private _cleanupResize?: () => void;
 }

@@ -1,6 +1,8 @@
 @if (isLoading()) {
 <article class="user-list">
-  <app-skeleton-loader />
+  <div class="loading-state">
+    <p class="bounce">Loading users...</p>
+  </div>
 </article>
 } @else if (virtualScrollRows().length) {
 <article class="user-list">

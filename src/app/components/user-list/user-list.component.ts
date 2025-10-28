@@ -11,7 +11,6 @@ import { UserGroup } from '../../models/user-group.model';
 import { User } from '../../models/user.model';
 import { UserItemComponent } from '../user-item/user-item.component';
 import { UserGroupHeaderComponent } from '../user-group-header/user-group-header.component';
-import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
 
 /**
  * Represents a row in the virtual scroll list
@@ -29,12 +28,7 @@ interface VirtualScrollRow {
   standalone: true,
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
-  imports: [
-    UserItemComponent,
-    UserGroupHeaderComponent,
-    ScrollingModule,
-    SkeletonLoaderComponent,
-  ],
+  imports: [UserItemComponent, UserGroupHeaderComponent, ScrollingModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserListComponent implements OnDestroy {

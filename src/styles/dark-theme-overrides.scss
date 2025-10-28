@@ -145,12 +145,6 @@ body.dark-theme app-user-list .group-count {
   color: var(--color-steel);
 }
 
-/* Skeleton / empty */
-body.dark-theme app-skeleton-loader,
-body.dark-theme app-user-list .empty-state {
-  color: var(--color-steel);
-}
-
 /* Scrollbar track (when visible initially) */
 body.dark-theme app-user-list .viewport {
   scrollbar-color: var(--color-fog) transparent;

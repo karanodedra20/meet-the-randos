@@ -2,4 +2,7 @@
   <img src="logo.svg" alt="awork logo" />
 </header>
 
-<app-user-list [users]="users"></app-user-list>
+<app-user-list
+  [users]="users()"
+  [nationalityCounts]="nationalityCounts()"
+></app-user-list>

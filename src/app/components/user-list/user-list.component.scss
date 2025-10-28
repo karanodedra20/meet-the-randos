@@ -36,9 +36,25 @@
       @media (max-width: $m) {
         height: calc(100vh - 260px);
       }
-
       @media (max-width: $s) {
         height: calc(100vh - 240px);
+      }
+    }
+
+    &.paginated-flow {
+      .paginated-container {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding-bottom: $spacing-xl;
+      }
+
+      .group-header-section {
+        margin-top: $spacing-xl;
+      }
+
+      .cards-row {
+        padding-bottom: $spacing-xxl;
       }
     }
 

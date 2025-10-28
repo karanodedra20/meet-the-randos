@@ -35,6 +35,7 @@ export class UserListComponent implements OnDestroy {
   groups = input.required<UserGroup[]>();
   nationalityCounts = input.required<Map<string, number>>();
   isLoading = input<boolean>(false);
+  isPaginated = input<boolean>(false);
 
   readonly itemSize = 320;
 
@@ -65,6 +66,30 @@ export class UserListComponent implements OnDestroy {
       }
     }
 
+    return rows;
+  });
+
+  /**
+   * Non-virtual pagination rows (natural document flow).
+   * When paginated we render all rows in normal layout so height is content-driven.
+   */
+  paginatedRows = computed<VirtualScrollRow[]>(() => {
+    if (!this.isPaginated()) {
+      return [];
+    }
+    const rows: VirtualScrollRow[] = [];
+    const groups = this.groups();
+    for (const group of groups) {
+      rows.push({ type: 'header', group, groupLabel: group.label });
+      const users = group.users;
+      for (let i = 0; i < users.length; i += this.cardsPerRow) {
+        rows.push({
+          type: 'users',
+          users: users.slice(i, i + this.cardsPerRow),
+          groupLabel: group.label,
+        });
+      }
+    }
     return rows;
   });
 

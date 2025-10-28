@@ -16,12 +16,18 @@ import { GroupingStrategy } from './models/user-group.model';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ToastContainerComponent } from './components/toast-container/toast-container.component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 import { UsersServiceStub } from './services/users.service.stub';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [UserListComponent, HeaderComponent, ToastContainerComponent],
+  imports: [
+    UserListComponent,
+    HeaderComponent,
+    ToastContainerComponent,
+    PaginationComponent,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,6 +43,11 @@ export class AppComponent implements OnInit, OnDestroy {
   filteredUsers = signal<User[]>([]);
   nationalityCounts = signal<Map<string, number>>(new Map());
   isLoading = signal<boolean>(true);
+
+  isPaginationEnabled = signal<boolean>(false);
+  currentPage = signal<number>(1);
+  totalPages = signal<number>(20);
+  resultsPerPage = 100;
 
   private searchQuery = '';
   private genderFilter = '';
@@ -56,6 +67,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Load all users initially (non-paginated)
+    this.loadUsers();
+  }
+
+  ngOnDestroy(): void {
+    this.groupingService.destroy();
+  }
+
+  private loadUsers(): void {
+    this.isLoading.set(true);
+
     this.usersService.getUsers().subscribe({
       next: (users) => {
         this.users.set(users);
@@ -78,8 +100,50 @@ export class AppComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.groupingService.destroy();
+  private loadPage(page: number): void {
+    this.isLoading.set(true);
+
+    this.usersService.getUsersWithInfo(page, this.resultsPerPage).subscribe({
+      next: ({ users, info }) => {
+        this.users.set(users);
+        this.filteredUsers.set(users);
+        this.nationalityCounts.set(
+          this.userStatsService.calculateNationalityCounts(users)
+        );
+        this.currentPage.set(page);
+        this.isLoading.set(false);
+
+        this.groupingService.groupUsers(users, GroupingStrategy.ALPHABETICAL);
+
+        // Scroll to top when page changes
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+      error: (error) => {
+        console.error('Failed to load users:', error);
+        this.isLoading.set(false);
+        this.toastService.error(
+          'Failed to load users. Please check your connection and try again.',
+          0 // 0 means the toast won't auto-dismiss
+        );
+      },
+    });
+  }
+
+  onPaginationToggle(enabled: boolean): void {
+    this.isPaginationEnabled.set(enabled);
+
+    if (enabled) {
+      this.loadPage(1);
+    } else {
+      this.currentPage.set(1);
+      this.loadUsers();
+    }
+  }
+
+  onPageChange(page: number): void {
+    if (page !== this.currentPage()) {
+      this.loadPage(page);
+    }
   }
 
   changeGrouping(strategy: GroupingStrategy): void {

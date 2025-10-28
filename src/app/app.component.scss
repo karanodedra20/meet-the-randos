@@ -9,6 +9,7 @@
   main {
     width: 100%;
     min-height: calc(100vh - 220px);
-    padding-bottom: $spacing-xl;
+    /* Reserve space so last row isn't hidden behind fixed pagination */
+    padding-bottom: calc($spacing-xxxxl + 90px + env(safe-area-inset-bottom, 0));
   }
 }

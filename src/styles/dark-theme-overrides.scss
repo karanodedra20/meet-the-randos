@@ -156,3 +156,36 @@ body.dark-theme app-toast-container .toast {
   color: var(--color-night);
   border-color: var(--color-fog);
 }
+
+/* Pagination */
+body.dark-theme app-pagination .pagination-container {
+  border-color: var(--color-fog);
+}
+body.dark-theme app-pagination .pagination-btn,
+body.dark-theme app-pagination .page-btn {
+  background: var(--color-sky);
+  color: var(--color-steel);
+  border-color: var(--color-fog);
+}
+body.dark-theme app-pagination .pagination-btn:hover:not(:disabled),
+body.dark-theme app-pagination .page-btn:hover:not(.active) {
+  background: var(--color-dust);
+  color: var(--color-night);
+  border-color: var(--color-dust);
+}
+body.dark-theme app-pagination .page-btn.active {
+  background: var(--color-night);
+  color: #0f1623;
+  border-color: var(--color-night);
+}
+body.dark-theme app-pagination .pagination-btn:disabled {
+  background: var(--color-ice);
+  color: var(--color-fog);
+  border-color: var(--color-fog);
+}
+body.dark-theme app-pagination .pagination-info {
+  color: var(--color-steel);
+}
+body.dark-theme app-pagination .ellipsis {
+  color: var(--color-steel);
+}

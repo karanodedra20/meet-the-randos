@@ -3,6 +3,7 @@ import {
   input,
   output,
   signal,
+  effect,
   ChangeDetectionStrategy,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -20,11 +21,13 @@ import { SwitchComponent } from '../switch/switch.component';
 export class HeaderComponent {
   isGrouping = input<boolean>(false);
   currentStrategy = input<GroupingStrategy>(GroupingStrategy.ALPHABETICAL);
+  isPaginationEnabled = input<boolean>(false);
 
   searchChange = output<string>();
   genderFilterChange = output<string>();
   nationalityFilterChange = output<string>();
   strategyChange = output<GroupingStrategy>();
+  paginationToggle = output<boolean>();
 
   searchQuery = signal<string>('');
   genderFilter = signal<string>('');
@@ -33,6 +36,7 @@ export class HeaderComponent {
   readonly GroupingStrategy = GroupingStrategy;
 
   darkMode = signal<boolean>(false);
+  paginationEnabled = signal<boolean>(false);
 
   constructor() {
     const saved = localStorage.getItem('pref-theme');
@@ -48,6 +52,13 @@ export class HeaderComponent {
         this.enableDarkMode(false);
       }
     }
+
+    effect(
+      () => {
+        this.paginationEnabled.set(this.isPaginationEnabled());
+      },
+      { allowSignalWrites: true }
+    );
   }
 
   toggleDarkMode(): void {
@@ -56,6 +67,11 @@ export class HeaderComponent {
 
   onThemeToggle(checked: boolean): void {
     checked ? this.enableDarkMode() : this.disableDarkMode();
+  }
+
+  onPaginationToggle(checked: boolean): void {
+    this.paginationEnabled.set(checked);
+    this.paginationToggle.emit(checked);
   }
 
   private enableDarkMode(persist: boolean = true): void {

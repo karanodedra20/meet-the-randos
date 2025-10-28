@@ -78,6 +78,16 @@
           }
         }
       }
+
+      .header-actions {
+        display: flex;
+        gap: $spacing-l;
+        align-items: center;
+
+        @media (max-width: $m) {
+          gap: $spacing-m;
+        }
+      }
     }
 
     .header-controls {

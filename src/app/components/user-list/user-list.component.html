@@ -4,6 +4,28 @@
     <p class="bounce">Loading users...</p>
   </div>
 </article>
+} @else if (isPaginated() && paginatedRows().length) {
+<article class="user-list paginated-flow">
+  <div class="paginated-container">
+    @for (row of paginatedRows(); track row.groupLabel + '-' + row.type + '-' + (row.users?.length || 0)) {
+      @if (row.type === 'header') {
+        <div class="group-header-section">
+          <h2 class="group-title">{{ row.group!.label }}</h2>
+          <span class="group-count">{{ row.group!.count }} users</span>
+        </div>
+      } @else {
+        <div class="cards-row">
+          @for (user of row.users; track user.login?.uuid) {
+            <app-user-item
+              [user]="user"
+              [nationalityCounts]="nationalityCounts()"
+            />
+          }
+        </div>
+      }
+    }
+  </div>
+</article>
 } @else if (virtualScrollRows().length) {
 <article class="user-list">
   <cdk-virtual-scroll-viewport

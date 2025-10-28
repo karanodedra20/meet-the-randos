@@ -22,13 +22,22 @@
       </div>
     </div>
 
-    <app-switch
-      [checked]="darkMode()"
-      (toggle)="onThemeToggle($event)"
-      leftIcon="sun"
-      rightIcon="moon"
-      ariaLabel="Theme switcher"
-    />
+    <div class="header-actions">
+      <app-switch
+        [checked]="paginationEnabled()"
+        (toggle)="onPaginationToggle($event)"
+        leftIcon="list"
+        rightIcon="pages"
+        ariaLabel="Pagination toggle"
+      />
+      <app-switch
+        [checked]="darkMode()"
+        (toggle)="onThemeToggle($event)"
+        leftIcon="sun"
+        rightIcon="moon"
+        ariaLabel="Theme switcher"
+      />
+    </div>
   </div>
 
   <!-- Controls Bar with Search, Filters, and Grouping -->

@@ -1,10 +1,12 @@
 <app-header
   [isGrouping]="isGrouping()"
   [currentStrategy]="currentStrategy()"
+  [isPaginationEnabled]="isPaginationEnabled()"
   (searchChange)="onSearchChange($event)"
   (genderFilterChange)="onGenderFilterChange($event)"
   (nationalityFilterChange)="onNationalityFilterChange($event)"
   (strategyChange)="changeGrouping($event)"
+  (paginationToggle)="onPaginationToggle($event)"
 ></app-header>
 
 <main>
@@ -12,7 +14,17 @@
     [groups]="groups()"
     [nationalityCounts]="nationalityCounts()"
     [isLoading]="isLoading() || isGrouping()"
+    [isPaginated]="isPaginationEnabled()"
   ></app-user-list>
+  
+  @if (isPaginationEnabled()) {
+    <app-pagination
+      [currentPage]="currentPage()"
+      [totalPages]="totalPages()"
+      [isLoading]="isLoading()"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
+  }
 </main>
 
 <app-toast-container></app-toast-container>

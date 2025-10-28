@@ -9,6 +9,7 @@ import { UsersService } from './services/users.service';
 import { UserStatsService } from './services/user-stats.service';
 import { User } from './models/user.model';
 import { UserListComponent } from './components/user-list/user-list.component';
+import { UsersServiceStub } from './services/users.service.stub';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 })
 export class AppComponent implements OnInit {
   private usersService = inject(UsersService);
+  private usersMockService = inject(UsersServiceStub); // Mock service
   private userStatsService = inject(UserStatsService);
 
   users = signal<User[]>([]);

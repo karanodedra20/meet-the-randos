@@ -46,6 +46,7 @@ export interface UserResult {
   cell: string;
   picture: Picture;
   nat: string;
+  gender: string;
   dob: Dob;
   location: Location;
   registered: Registered;

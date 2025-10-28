@@ -37,6 +37,7 @@ export class User {
   age?: number;
   dateOfBirth?: string;
   nat?: string;
+  gender?: string;
   address?: Address;
   registeredDate?: string;
   login?: LoginInfo;
@@ -64,6 +65,7 @@ export class User {
           age: user.dob.age,
           dateOfBirth: new Date(user.dob.date).toLocaleDateString(),
           nat: user.nat,
+          gender: user.gender,
           address: {
             street: `${user.location.street.number} ${user.location.street.name}`,
             city: user.location.city,

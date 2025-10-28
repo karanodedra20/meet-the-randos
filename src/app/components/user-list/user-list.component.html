@@ -8,22 +8,24 @@
     [itemSize]="itemSize"
     [minBufferPx]="800"
     [maxBufferPx]="1200"
-    class="viewport">
+    class="viewport"
+    [class.hide-scrollbar]="hideScrollbar()"
+  >
     <div *cdkVirtualFor="let row of virtualScrollRows()" class="virtual-row">
       @if (row.type === 'header') {
-        <div class="group-header-section">
-          <h2 class="group-title">{{ row.group!.label }}</h2>
-          <span class="group-count">{{ row.group!.count }} users</span>
-        </div>
+      <div class="group-header-section">
+        <h2 class="group-title">{{ row.group!.label }}</h2>
+        <span class="group-count">{{ row.group!.count }} users</span>
+      </div>
       } @else {
-        <div class="cards-row">
-          @for (user of row.users; track user.login?.uuid) {
-            <app-user-item
-              [user]="user"
-              [nationalityCounts]="nationalityCounts()"
-            />
-          }
-        </div>
+      <div class="cards-row">
+        @for (user of row.users; track user.login?.uuid) {
+        <app-user-item
+          [user]="user"
+          [nationalityCounts]="nationalityCounts()"
+        />
+        }
+      </div>
       }
     </div>
   </cdk-virtual-scroll-viewport>

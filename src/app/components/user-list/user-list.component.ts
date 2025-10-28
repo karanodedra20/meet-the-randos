@@ -3,6 +3,8 @@ import {
   input,
   computed,
   ChangeDetectionStrategy,
+  signal,
+  OnDestroy,
 } from '@angular/core';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { UserGroup } from '../../models/user-group.model';
@@ -35,7 +37,7 @@ interface VirtualScrollRow {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserListComponent {
+export class UserListComponent implements OnDestroy {
   groups = input.required<UserGroup[]>();
   nationalityCounts = input.required<Map<string, number>>();
   isLoading = input<boolean>(false);
@@ -71,4 +73,20 @@ export class UserListComponent {
 
     return rows;
   });
+
+  private hideScrollbarTimeoutId: any;
+  private readonly hideDelayMs = 5000;
+  readonly hideScrollbar = signal(false);
+
+  constructor() {
+    this.hideScrollbarTimeoutId = setTimeout(() => {
+      this.hideScrollbar.set(true);
+    }, this.hideDelayMs);
+  }
+
+  ngOnDestroy(): void {
+    if (this.hideScrollbarTimeoutId) {
+      clearTimeout(this.hideScrollbarTimeoutId);
+    }
+  }
 }

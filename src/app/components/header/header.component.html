@@ -1,0 +1,155 @@
+<header>
+  <!-- Top Bar with Logo and Dark Mode -->
+  <div class="header-top">
+    <div class="logo-section">
+      <svg
+        class="logo-icon"
+        width="32"
+        height="32"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+        <circle cx="9" cy="7" r="4"></circle>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+      </svg>
+      <div class="logo-text">
+        <h1 class="app-title">Meet The Randos</h1>
+        <p class="app-subtitle">Browse and explore user profiles</p>
+      </div>
+    </div>
+
+    <button class="dark-mode-toggle" title="Toggle dark mode">
+      <svg
+        class="icon-light"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg
+        class="icon-dark"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Controls Bar with Search, Filters, and Grouping -->
+  <div class="header-controls">
+    <div class="search-box">
+      <svg
+        class="search-icon"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <circle cx="11" cy="11" r="8"></circle>
+        <path d="m21 21-4.35-4.35"></path>
+      </svg>
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Search by name, email, or username..."
+        [(ngModel)]="searchQuery"
+        (input)="onSearchChange()"
+      />
+      @if (searchQuery()) {
+      <button class="clear-search" (click)="clearSearch()" title="Clear search">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+      }
+    </div>
+
+    <div class="filters">
+      <select
+        class="filter-dropdown"
+        [(ngModel)]="genderFilter"
+        (change)="onGenderFilterChange()"
+      >
+        <option value="">All Genders</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+
+      <select
+        class="filter-dropdown"
+        [(ngModel)]="nationalityFilter"
+        (change)="onNationalityFilterChange()"
+      >
+        <option value="">All Countries</option>
+        <option value="US">United States</option>
+        <option value="GB">United Kingdom</option>
+        <option value="CA">Canada</option>
+        <option value="AU">Australia</option>
+        <option value="DE">Germany</option>
+        <option value="FR">France</option>
+      </select>
+    </div>
+
+    <div class="grouping-controls">
+      <button
+        class="grouping-btn"
+        [class.active]="currentStrategy() === GroupingStrategy.ALPHABETICAL"
+        (click)="changeGrouping(GroupingStrategy.ALPHABETICAL)"
+        title="Group alphabetically"
+      >
+        A-Z
+      </button>
+      <button
+        class="grouping-btn"
+        [class.active]="currentStrategy() === GroupingStrategy.AGE"
+        (click)="changeGrouping(GroupingStrategy.AGE)"
+        title="Group by age"
+      >
+        Age
+      </button>
+      <button
+        class="grouping-btn"
+        [class.active]="currentStrategy() === GroupingStrategy.NATIONALITY"
+        (click)="changeGrouping(GroupingStrategy.NATIONALITY)"
+        title="Group by nationality"
+      >
+        Nationality
+      </button>
+    </div>
+  </div>
+
+  @if (isGrouping()) {
+  <div class="loading-bar"></div>
+  }
+</header>

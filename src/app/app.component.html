@@ -1,37 +1,18 @@
-<header>
-  <img src="logo.svg" alt="awork logo" />
+<app-header
+  [isGrouping]="isGrouping()"
+  [currentStrategy]="currentStrategy()"
+  (searchChange)="onSearchChange($event)"
+  (genderFilterChange)="onGenderFilterChange($event)"
+  (nationalityFilterChange)="onNationalityFilterChange($event)"
+  (strategyChange)="changeGrouping($event)"
+></app-header>
 
-  <div class="grouping-controls">
-    <label>Group by:</label>
-    <button
-      class="grouping-btn"
-      [class.active]="currentStrategy() === GroupingStrategy.ALPHABETICAL"
-      (click)="changeGrouping(GroupingStrategy.ALPHABETICAL)"
-    >
-      A-Z
-    </button>
-    <button
-      class="grouping-btn"
-      [class.active]="currentStrategy() === GroupingStrategy.AGE"
-      (click)="changeGrouping(GroupingStrategy.AGE)"
-    >
-      Age
-    </button>
-    <button
-      class="grouping-btn"
-      [class.active]="currentStrategy() === GroupingStrategy.NATIONALITY"
-      (click)="changeGrouping(GroupingStrategy.NATIONALITY)"
-    >
-      Nationality
-    </button>
-    @if (isGrouping()) {
-      <span class="loading-indicator">Grouping...</span>
-    }
-  </div>
-</header>
+<main>
+  <app-user-list
+    [groups]="groups()"
+    [nationalityCounts]="nationalityCounts()"
+    [isLoading]="isLoading() || isGrouping()"
+  ></app-user-list>
+</main>
 
-<app-user-list
-  [groups]="groups()"
-  [nationalityCounts]="nationalityCounts()"
-  [isLoading]="isLoading() || isGrouping()"
-></app-user-list>
+<app-toast-container></app-toast-container>

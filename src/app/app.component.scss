@@ -1,83 +1,14 @@
 @import "ease/ease-import.scss";
 
 :host {
-  header {
-    min-height: 200px;
-    text-align: center;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: $spacing-xl;
-    padding: $spacing-xl;
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
 
-    .grouping-controls {
-      display: flex;
-      align-items: center;
-      gap: $spacing-m;
-
-      label {
-        font-size: $font-size-normal;
-        font-weight: $font-weight-semi;
-        color: $color-night;
-      }
-
-      .grouping-btn {
-        background-color: $color-white;
-        border: 2px solid $color-sky;
-        border-radius: $border-size-m;
-        color: $color-steel;
-        cursor: pointer;
-        font-size: $font-size-normal;
-        font-weight: $font-weight-semi;
-        padding: $spacing-s $spacing-l;
-        transition: all 0.2s ease;
-
-        &:hover {
-          background-color: $color-ice;
-          border-color: $color-fog;
-        }
-
-        &.active {
-          background-color: $color-blue-900;
-          border-color: $color-blue-900;
-          color: $color-white;
-        }
-
-        &:active {
-          transform: scale(0.98);
-        }
-      }
-
-      .loading-indicator {
-        display: flex;
-        align-items: center;
-        gap: $spacing-s;
-        font-size: $font-size-small;
-        color: $color-steel;
-        font-style: italic;
-
-        &::before {
-          content: "";
-          display: inline-block;
-          width: 16px;
-          height: 16px;
-          border: 2px solid $color-fog;
-          border-top-color: $color-blue-900;
-          border-radius: 50%;
-          animation: spin 0.8s linear infinite;
-        }
-      }
-    }
-  }
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
+  main {
+    width: 100%;
+    min-height: calc(100vh - 220px);
+    padding-bottom: $spacing-xl;
   }
 }

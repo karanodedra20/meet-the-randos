@@ -78,37 +78,6 @@
           }
         }
       }
-
-      .dark-mode-toggle {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        border: 2px solid $color-fog;
-        background-color: $color-white;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.2s ease;
-        padding: 0;
-
-        &:hover {
-          background-color: $color-ice;
-          border-color: $color-steel;
-        }
-
-        &:active {
-          transform: scale(0.95);
-        }
-
-        svg {
-          color: $color-steel;
-        }
-
-        .icon-dark {
-          display: none;
-        }
-      }
     }
 
     .header-controls {

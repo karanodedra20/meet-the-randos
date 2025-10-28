@@ -1,0 +1,164 @@
+@import "ease/_variables";
+
+/*
+ * Dark Theme Overrides
+ * Applied when body has .dark-theme class
+ */
+body.dark-theme {
+  /* Core surface + text tokens using existing light scale reversed */
+  --color-white: #0f1623; /* base surface */
+  --color-smoke: #121c2b;
+  --color-ice: #162233;
+  --color-sky: #1c2c40;
+  --color-fog: #24354b;
+  --color-dust: #2e4260;
+  --color-light-steel: #5e7aa3;
+  --color-steel: #7ea0cd;
+  --color-slate: #aac3e3;
+  --color-midnight: #d1e0f4;
+  --color-asphalt: #e2edf8;
+  --color-night: #f6f9fc; /* highest contrast text */
+
+  --color-icon: var(--color-slate);
+  --color-border: var(--color-fog);
+  --color-fat-border: var(--color-sky);
+  --color-contrasty-border: var(--color-dust);
+  --color-input: var(--color-smoke);
+
+  --color-text-normal: var(--color-night);
+  --color-text-light: var(--color-steel);
+  --overlying-bg: var(--color-smoke);
+  --overlying-bg-rgb: 18, 28, 43;
+
+  color: var(--color-text-normal);
+  background: linear-gradient(180deg, #0d141f 0%, #0b111a 100%);
+}
+
+/* Generic element tweaks */
+body.dark-theme {
+  ::selection {
+    background: rgba(var(--color-steel-rgb, 126, 160, 205), 0.35);
+  }
+
+  a {
+    color: $color-blue-500;
+  }
+}
+
+/* Header */
+body.dark-theme app-header header {
+  background: linear-gradient(135deg, #162233 0%, #101823 100%);
+  border-color: var(--color-fog);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Theme switcher (Switch component) */
+body.dark-theme app-switch .theme-icon.active {
+  color: var(--color-night);
+}
+body.dark-theme app-switch .theme-icon:not(.active) {
+  color: var(--color-steel);
+}
+body.dark-theme app-switch .mini-toggle {
+  background: linear-gradient(135deg, #1a2533 0%, #111a24 100%);
+  border-color: var(--color-fog);
+
+  .thumb {
+    background: var(--color-sky);
+    border-color: var(--color-fog);
+  }
+
+  &[aria-pressed="true"] .thumb,
+  &[aria-checked="true"] .thumb {
+    background: var(--color-ice);
+    border-color: var(--color-dust);
+  }
+}
+
+/* Search & filters */
+body.dark-theme app-header .search-input,
+body.dark-theme app-header .filter-dropdown {
+  background: var(--color-sky);
+  border-color: var(--color-fog);
+  color: var(--color-night);
+}
+body.dark-theme app-header .search-input::placeholder {
+  color: var(--color-steel);
+}
+body.dark-theme app-header .clear-search {
+  background: var(--color-fog);
+}
+body.dark-theme app-header .clear-search:hover {
+  background: var(--color-steel);
+}
+
+/* Grouping buttons */
+body.dark-theme app-header .grouping-controls {
+  background: var(--color-sky);
+  border-color: var(--color-fog);
+}
+body.dark-theme app-header .grouping-btn {
+  color: var(--color-steel);
+}
+body.dark-theme app-header .grouping-btn.active {
+  background: var(--color-night);
+  color: #0f1623;
+}
+
+/* User cards */
+body.dark-theme app-user-item .user-card {
+  background: var(--color-sky);
+  border-color: var(--color-fog);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+body.dark-theme app-user-item .user-card:hover {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 4px 10px -2px rgba(0, 0, 0, 0.55), 0 8px 20px -4px rgba(0, 0, 0, 0.7);
+  border-color: var(--color-dust);
+}
+body.dark-theme app-user-item.expanded .user-card {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 6px 14px -4px rgba(0, 0, 0, 0.6), 0 14px 32px -6px rgba(0, 0, 0, 0.75);
+}
+body.dark-theme app-user-item .user-name {
+  color: var(--color-night);
+}
+body.dark-theme app-user-item .username {
+  color: var(--color-steel);
+}
+body.dark-theme app-user-item .detail-label {
+  color: var(--color-steel);
+}
+body.dark-theme app-user-item .detail-value {
+  color: var(--color-slate);
+}
+
+/* Group headers */
+body.dark-theme app-user-list .group-header-section {
+  border-color: var(--color-fog);
+}
+body.dark-theme app-user-list .group-title {
+  color: var(--color-night);
+}
+body.dark-theme app-user-list .group-count {
+  background: var(--color-sky);
+  color: var(--color-steel);
+}
+
+/* Skeleton / empty */
+body.dark-theme app-skeleton-loader,
+body.dark-theme app-user-list .empty-state {
+  color: var(--color-steel);
+}
+
+/* Scrollbar track (when visible initially) */
+body.dark-theme app-user-list .viewport {
+  scrollbar-color: var(--color-fog) transparent;
+}
+
+/* Toasts (if any) */
+body.dark-theme app-toast-container .toast {
+  background: var(--color-sky);
+  color: var(--color-night);
+  border-color: var(--color-fog);
+}

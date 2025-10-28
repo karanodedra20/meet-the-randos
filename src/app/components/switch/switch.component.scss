@@ -1,0 +1,106 @@
+@import "ease/ease-import.scss";
+
+:host {
+  display: inline-block;
+
+  .theme-switcher {
+    display: flex;
+    align-items: center;
+    gap: $spacing-s;
+
+    .theme-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      color: $color-steel;
+      transition: color 0.3s ease, opacity 0.3s ease;
+
+      &.active {
+        color: $color-night;
+        opacity: 1;
+      }
+
+      &:not(.active) {
+        opacity: 0.55;
+      }
+    }
+
+    .mini-toggle {
+      --mini-width: 48px;
+      --mini-height: 26px;
+      --border-width: 2px;
+      --inner-padding: 3px;
+
+      --thumb-size: calc(
+        var(--mini-height) - (var(--border-width) * 2) -
+          (var(--inner-padding) * 2)
+      );
+
+      position: relative;
+      width: var(--mini-width);
+      height: var(--mini-height);
+      padding: 0;
+      border: var(--border-width) solid $color-fog;
+      border-radius: calc(var(--mini-height) / 2);
+      background: linear-gradient(135deg, $color-white 0%, $color-ice 100%);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      transition: background 0.3s ease, border-color 0.3s ease;
+      box-sizing: border-box;
+
+      &:hover {
+        border-color: $color-steel;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $color-blue-500;
+        outline-offset: 2px;
+      }
+
+      &[aria-pressed="true"],
+      &[aria-checked="true"] {
+        background: linear-gradient(
+          135deg,
+          $color-night 0%,
+          $color-midnight 100%
+        );
+
+        .thumb {
+          transform: translateX(calc(var(--mini-width) - var(--mini-height)));
+          background: $color-sky;
+          border-color: $color-dust;
+        }
+      }
+
+      .thumb {
+        position: absolute;
+        top: var(--inner-padding);
+        left: var(--inner-padding);
+        width: var(--thumb-size);
+        height: var(--thumb-size);
+        background: $color-white;
+        border: 1px solid $color-fog;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+          background 0.3s ease, border-color 0.3s ease;
+        will-change: transform;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        border: 0;
+        white-space: nowrap;
+      }
+    }
+  }
+}

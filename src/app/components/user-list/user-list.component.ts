@@ -12,13 +12,13 @@ import { UserGroupHeaderComponent } from '../user-group-header/user-group-header
 import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
 
 /**
- * Represents an item in the virtual scroll list
- * Can be either a group header or a user item
+ * Represents a row in the virtual scroll list
+ * Can be either a group header or a row of user cards
  */
-interface ListItem {
-  type: 'header' | 'user';
+interface VirtualScrollRow {
+  type: 'header' | 'users';
   group?: UserGroup;
-  user?: User;
+  users?: User[];
   groupLabel?: string;
 }
 
@@ -40,28 +40,35 @@ export class UserListComponent {
   nationalityCounts = input.required<Map<string, number>>();
   isLoading = input<boolean>(false);
 
-  readonly itemSize = 60;
+  readonly itemSize = 320;
 
-  flattenedItems = computed<ListItem[]>(() => {
-    const items: ListItem[] = [];
+  readonly cardsPerRow = 3;
+
+  /**
+   * Converts groups into virtual scroll rows
+   * Each row contains either a header or multiple user cards
+   */
+  virtualScrollRows = computed<VirtualScrollRow[]>(() => {
+    const rows: VirtualScrollRow[] = [];
     const groups = this.groups();
 
     for (const group of groups) {
-      items.push({
+      rows.push({
         type: 'header',
         group,
         groupLabel: group.label,
       });
 
-      for (const user of group.users) {
-        items.push({
-          type: 'user',
-          user,
+      const users = group.users;
+      for (let i = 0; i < users.length; i += this.cardsPerRow) {
+        rows.push({
+          type: 'users',
+          users: users.slice(i, i + this.cardsPerRow),
           groupLabel: group.label,
         });
       }
     }
 
-    return items;
+    return rows;
   });
 }

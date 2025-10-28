@@ -2,21 +2,29 @@
 <article class="user-list">
   <app-skeleton-loader />
 </article>
-} @else if (flattenedItems().length) {
+} @else if (virtualScrollRows().length) {
 <article class="user-list">
-  <cdk-virtual-scroll-viewport [itemSize]="itemSize" class="viewport">
-    <div *cdkVirtualFor="let item of flattenedItems()" class="list-item">
-      @switch (item.type) { @case ('header') {
-      <app-user-group-header
-        [label]="item.group!.label"
-        [count]="item.group!.count"
-      />
-      } @case ('user') {
-      <app-user-item
-        [user]="item.user!"
-        [nationalityCounts]="nationalityCounts()"
-      />
-      } }
+  <cdk-virtual-scroll-viewport
+    [itemSize]="itemSize"
+    [minBufferPx]="800"
+    [maxBufferPx]="1200"
+    class="viewport">
+    <div *cdkVirtualFor="let row of virtualScrollRows()" class="virtual-row">
+      @if (row.type === 'header') {
+        <div class="group-header-section">
+          <h2 class="group-title">{{ row.group!.label }}</h2>
+          <span class="group-count">{{ row.group!.count }} users</span>
+        </div>
+      } @else {
+        <div class="cards-row">
+          @for (user of row.users; track user.login?.uuid) {
+            <app-user-item
+              [user]="user"
+              [nationalityCounts]="nationalityCounts()"
+            />
+          }
+        </div>
+      }
     </div>
   </cdk-virtual-scroll-viewport>
 </article>

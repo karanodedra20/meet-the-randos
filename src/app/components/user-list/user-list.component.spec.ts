@@ -95,7 +95,7 @@ describe('UserListComponent', () => {
   });
 
   it('should have correct cardsPerRow value', () => {
-    expect(component.cardsPerRow).toBe(3);
+    expect(component.cardsPerRow()).toBe(2);
   });
 
   it('should have correct itemSize value', () => {

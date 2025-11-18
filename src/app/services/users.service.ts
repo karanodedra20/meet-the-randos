@@ -20,7 +20,7 @@ export class UsersService {
    */
   getUsers(page = 1): Observable<User[]> {
     return this.httpClient
-      .get<ApiResult>(`${this.apiUrl}?results=5000&seed=awork&page=${page}`)
+      .get<ApiResult>(`${this.apiUrl}?results=5000&seed=randos&page=${page}`)
       .pipe(map(apiResult => User.mapFromUserResult(apiResult.results)))
   }
 
@@ -32,7 +32,7 @@ export class UsersService {
    */
   getUsersWithInfo(page = 1, results = 100): Observable<{ users: User[], info: any }> {
     return this.httpClient
-      .get<ApiResult>(`${this.apiUrl}?results=${results}&seed=awork&page=${page}`)
+      .get<ApiResult>(`${this.apiUrl}?results=${results}&seed=randos&page=${page}`)
       .pipe(
         map(apiResult => ({
           users: User.mapFromUserResult(apiResult.results),

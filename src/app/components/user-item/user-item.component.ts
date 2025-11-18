@@ -1,26 +1,64 @@
-import { Component, input } from '@angular/core';
-import { User } from '../../models/user.model'
+import {
+  Component,
+  input,
+  computed,
+  signal,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-user-item',
   standalone: true,
   templateUrl: './user-item.component.html',
-  styleUrl: './user-item.component.scss'
+  styleUrl: './user-item.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '[class.expanded]': 'isExpanded()',
+    '(click)': 'toggleExpand()',
+  },
+  animations: [
+    trigger('expandCollapse', [
+      state(
+        'collapsed',
+        style({
+          height: '0',
+          opacity: '0',
+          padding: '0',
+        })
+      ),
+      state(
+        'expanded',
+        style({
+          height: '*',
+          opacity: '1',
+        })
+      ),
+      transition('collapsed <=> expanded', [
+        animate('300ms cubic-bezier(0.4, 0.0, 0.2, 1)'),
+      ]),
+    ]),
+  ],
 })
 export class UserItemComponent {
-  user = input.required<User>()
-  allUsers = input.required<User[]>()
+  user = input.required<User>();
+  nationalityCounts = input.required<Map<string, number>>();
 
-  /**
-   * Get the count of users with same nationality
-   */
-  get nationalitiesCount(): number {
-    if (!this.allUsers().length) {
-      return 0
-    }
+  isExpanded = signal<boolean>(false);
 
-    return this.allUsers().reduce((acc, user) => {
-      return user.nat === this.user().nat ? acc + 1 : acc
-    }, 0)
+  nationalityCount = computed(() => {
+    const nat = this.user().nat;
+    return nat ? this.nationalityCounts().get(nat) || 0 : 0;
+  });
+
+  toggleExpand(): void {
+    this.isExpanded.update((expanded) => !expanded);
   }
 }

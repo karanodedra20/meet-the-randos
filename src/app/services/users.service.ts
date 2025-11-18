@@ -23,4 +23,21 @@ export class UsersService {
       .get<ApiResult>(`${this.apiUrl}?results=5000&seed=awork&page=${page}`)
       .pipe(map(apiResult => User.mapFromUserResult(apiResult.results)))
   }
+
+  /**
+   * Fetches users with pagination info
+   * @param {number} page - Page number
+   * @param {number} results - Number of results per page (default 100)
+   * @returns {Observable<{ users: User[], info: any }>}
+   */
+  getUsersWithInfo(page = 1, results = 100): Observable<{ users: User[], info: any }> {
+    return this.httpClient
+      .get<ApiResult>(`${this.apiUrl}?results=${results}&seed=awork&page=${page}`)
+      .pipe(
+        map(apiResult => ({
+          users: User.mapFromUserResult(apiResult.results),
+          info: apiResult.info
+        }))
+      )
+  }
 }

@@ -1,0 +1,137 @@
+@import "ease/ease-import.scss";
+
+.toast-container {
+  position: fixed;
+  top: $spacing-xxl;
+  right: $spacing-xl;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-m;
+  max-width: 420px;
+  pointer-events: none;
+
+  .toast {
+    display: flex;
+    align-items: center;
+    gap: $spacing-m;
+    padding: $spacing-l;
+    border-radius: $border-size-l;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    pointer-events: all;
+    min-width: 320px;
+    border-left: 4px solid;
+
+    .toast-icon {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg {
+        stroke-width: 2.5;
+      }
+    }
+
+    .toast-message {
+      flex: 1;
+      font-size: $font-size-normal;
+      font-weight: $font-weight-semi;
+      line-height: 1.4;
+    }
+
+    .toast-close {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      padding: 0;
+      transition: all 0.2s ease;
+      opacity: 0.6;
+
+      &:hover {
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      svg {
+        stroke-width: 2.5;
+      }
+    }
+
+    &.toast-error {
+      background-color: #fee;
+      border-left-color: #dc2626;
+      color: #7f1d1d;
+
+      .toast-icon svg {
+        stroke: #dc2626;
+      }
+
+      .toast-close svg {
+        stroke: #991b1b;
+      }
+    }
+
+    &.toast-success {
+      background-color: #ecfdf5;
+      border-left-color: #10b981;
+      color: #064e3b;
+
+      .toast-icon svg {
+        stroke: #10b981;
+      }
+
+      .toast-close svg {
+        stroke: #047857;
+      }
+    }
+
+    &.toast-warning {
+      background-color: #fef3c7;
+      border-left-color: #f59e0b;
+      color: #78350f;
+
+      .toast-icon svg {
+        stroke: #f59e0b;
+      }
+
+      .toast-close svg {
+        stroke: #b45309;
+      }
+    }
+
+    &.toast-info {
+      background-color: #dbeafe;
+      border-left-color: #3b82f6;
+      color: #1e3a8a;
+
+      .toast-icon svg {
+        stroke: #3b82f6;
+      }
+
+      .toast-close svg {
+        stroke: #1d4ed8;
+      }
+    }
+  }
+}
+
+@media (max-width: $m) {
+  .toast-container {
+    right: $spacing-m;
+    left: $spacing-m;
+    max-width: none;
+
+    .toast {
+      min-width: 0;
+    }
+  }
+}

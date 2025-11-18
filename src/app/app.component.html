@@ -1,5 +1,30 @@
-<header>
-  <img src="logo.svg" alt="awork logo" />
-</header>
+<app-header
+  [isGrouping]="isGrouping()"
+  [currentStrategy]="currentStrategy()"
+  [isPaginationEnabled]="isPaginationEnabled()"
+  (searchChange)="onSearchChange($event)"
+  (genderFilterChange)="onGenderFilterChange($event)"
+  (nationalityFilterChange)="onNationalityFilterChange($event)"
+  (strategyChange)="changeGrouping($event)"
+  (paginationToggle)="onPaginationToggle($event)"
+></app-header>
 
-<app-user-list [users]="users"></app-user-list>
+<main>
+  <app-user-list
+    [groups]="groups()"
+    [nationalityCounts]="nationalityCounts()"
+    [isLoading]="isLoading() || isGrouping()"
+    [isPaginated]="isPaginationEnabled()"
+  ></app-user-list>
+  
+  @if (isPaginationEnabled()) {
+    <app-pagination
+      [currentPage]="currentPage()"
+      [totalPages]="totalPages()"
+      [isLoading]="isLoading()"
+      (pageChange)="onPageChange($event)"
+    ></app-pagination>
+  }
+</main>
+
+<app-toast-container></app-toast-container>

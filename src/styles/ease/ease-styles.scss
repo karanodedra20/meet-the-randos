@@ -3,9 +3,9 @@
  * It should never be imported more than once! ☝️
  */
 
-@import './_reset.scss';
-@import './_colors.scss';
-@import './_typography.scss';
+@import "./_reset.scss";
+@import "./_colors.scss";
+@import "./_typography.scss";
 
 body,
 html {
@@ -16,11 +16,16 @@ html {
   color: var(--color-text-light);
   text-rendering: geometricPrecision;
   -webkit-backface-visibility: hidden;
+
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 body {
-  background: linear-gradient(135deg, #e0d7fe 0%, #efdaf6 53%, #fdf3e9 100%);
-  background-color: #e0d7fe;
+  min-height: 100vh;
+
   background-size: cover;
   min-height: 100vh;
 }

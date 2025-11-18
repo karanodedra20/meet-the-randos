@@ -1,49 +1,228 @@
-@import 'ease/ease-import.scss';
+@import "ease/ease-import.scss";
 
 :host {
-  .user-item {
-    align-items: center;
-    border-bottom: 1px solid $color-fog;
-    box-sizing: border-box;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  width: 100%;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+
+  .user-card {
+    background-color: $color-white;
+    border-radius: $border-size-l;
+    border: 2px solid $color-fog;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4),
+      0 0 0 0 rgba(0, 0, 0, 0);
+    overflow: hidden;
+    transition: all 0.2s ease;
+    width: 100%;
+    height: 100%;
     display: flex;
-    flex-wrap: nowrap;
-    height: 60px;
-    padding: 12px;
-    color: $color-night;
+    flex-direction: column;
 
-    &__image {
-      border-radius: 20%;
-      height: 40px;
-      width: 40px;
+    &:hover {
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+        0 4px 10px -2px rgba(0, 0, 0, 0.12), 0 8px 20px -4px rgba(0, 0, 0, 0.16);
+      border-color: $color-steel;
+    }
+  }
+
+  .card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: $spacing-l;
+    padding: $spacing-xxl $spacing-xl $spacing-l $spacing-xl;
+
+    .avatar-container {
+      position: relative;
+      flex-shrink: 0;
+
+      .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid $color-white;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .badge-country {
+        position: absolute;
+        bottom: -4px;
+        right: -4px;
+        background-color: $color-white;
+        border: 2px solid $color-sky;
+        border-radius: $border-size-s;
+        padding: $spacing-xxs $spacing-s;
+        font-size: $font-size-tiny;
+        font-weight: $font-weight-normal;
+        color: $color-night;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
     }
 
-    &__name,
-    &__email,
-    &__phone {
-      margin: 12px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    &__name {
+    .user-info {
       flex: 1;
-      min-width: 100px;
+      min-width: 0;
+      padding-top: $spacing-xs;
+
+      .user-name {
+        margin: 0 0 $spacing-xs 0;
+        font-size: $font-size-h2;
+        font-weight: $font-weight-semi;
+        color: $color-night;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .username {
+        margin: 0;
+        font-size: $font-size-small;
+        font-weight: $font-weight-normal;
+        color: $color-steel;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
 
-    &__email {
-      width: 220px;
+    .expand-icon {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: $color-smoke;
+      color: $color-steel;
+      transition: all 0.3s ease;
+      margin-top: $spacing-xs;
+
+      svg {
+        transition: transform 0.3s ease;
+      }
+
+      &.expanded svg {
+        transform: rotate(180deg);
+      }
+
+      &:hover {
+        background-color: $color-ice;
+        color: $color-slate;
+      }
+    }
+  }
+
+  .card-body {
+    padding: 0 $spacing-xl $spacing-xl $spacing-xl;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+
+    .info-row {
+      display: flex;
+      align-items: center;
+      gap: $spacing-m;
+
+      .icon {
+        flex-shrink: 0;
+        color: $color-light-steel;
+      }
+
+      .info-text {
+        color: $color-slate;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .card-details {
+    overflow: hidden;
+
+    .details-divider {
+      height: 1px;
+      background-color: $color-fog;
+      margin: 0 $spacing-xl $spacing-l $spacing-xl;
     }
 
-    &__phone {
-      width: 110px;
+    .detail-row {
+      display: flex;
+      align-items: flex-start;
+      gap: $spacing-m;
+      padding: 0 $spacing-xl $spacing-m $spacing-xl;
+
+      .icon {
+        flex-shrink: 0;
+        color: $color-light-steel;
+        margin-top: $spacing-xxs;
+      }
+
+      .detail-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xxs;
+
+        .detail-label {
+          font-size: $font-size-tiny;
+          font-weight: $font-weight-semi;
+          color: $color-steel;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+          font-size: $font-size-small;
+          font-weight: $font-weight-normal;
+          color: $color-slate;
+          line-height: $line-height-normal;
+        }
+      }
     }
 
-    &__nat {
-      margin-left: 12px;
-      text-align: right;
-      width: 80px;
+    .timezone-section {
+      background: linear-gradient(135deg, $color-smoke 0%, $color-ice 100%);
+      border: 1px solid $color-fog;
+      padding: $spacing-xl;
+      margin: $spacing-l $spacing-xl $spacing-xl $spacing-xl;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-l;
+      border-radius: $border-size-m;
+
+      .timezone-item {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xs;
+
+        .timezone-label {
+          font-size: $font-size-tiny;
+          font-weight: $font-weight-semi;
+          color: $color-steel;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .timezone-value {
+          font-size: $font-size-small;
+          font-weight: $font-weight-normal;
+          color: $color-slate;
+          line-height: $line-height-small;
+        }
+      }
     }
+  }
+
+  &.expanded .user-card {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+      0 6px 14px -4px rgba(0, 0, 0, 0.18), 0 14px 32px -6px rgba(0, 0, 0, 0.22);
   }
 }

@@ -1,38 +1,107 @@
-# Awork Challenge
+# Meet the Randos 🎭
 
-Hello ! Welcome to the awork challenge 🤩. We are looking forward to seeing what you will come up with!
+A high-performance Angular application for browsing and managing large user datasets (5000+ users) with advanced features like virtual scrolling, Web Worker-based grouping, real-time search, filtering, and dark mode.
 
-Let us know if you have any questions and refer to the instructions sent to you. This readme contains mostly the install steps to get up and running with the application in its initial state.
+Built with Angular 18, TypeScript, and modern web technologies to demonstrate performance optimization techniques for handling large datasets in the browser.
+
+## ✨ Key Features
+
+- 🚀 **Virtual Scrolling** - Smooth rendering of 5000+ users (only ~50 DOM nodes)
+- ⚡ **Web Workers** - Non-blocking grouping operations
+- 🔍 **Real-Time Search** - Instant filtering across multiple fields
+- 📊 **Multiple Grouping** - Alphabetical, Age Ranges, Nationality
+- 🎨 **Dark Mode** - System preference detection with persistence
+- 📱 **Responsive Design** - Works on desktop, tablet, and mobile
+- 🔄 **Pagination Mode** - Toggle between virtual scroll and traditional pages
+- ✨ **Expandable Cards** - Click to reveal detailed user information
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- Install [Node.js](https://nodejs.org/) which includes [Node Package Manager][npm](https://www.npmjs.com/get-npm)
-- Run `npm install` to install the node packages
+- **Node.js** (v18 or higher) - [Download here](https://nodejs.org/)
+- **npm** (comes with Node.js)
 
-## Introduction
+### Installation & Running
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+```bash
+# Install dependencies
+npm install
 
-## Development server
+# Start development server
+npm start
+```
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Navigate to `http://localhost:4200/` - the app will automatically reload on file changes.
 
-## Code scaffolding
+### Available Commands
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+| Command                 | Description                               |
+| ----------------------- | ----------------------------------------- |
+| `npm start`             | Start dev server at http://localhost:4200 |
+| `npm run build`         | Build for production (outputs to `dist/`) |
+| `npm test`              | Run unit tests with Jest                  |
+| `npm run test:watch`    | Run tests in watch mode                   |
+| `npm run test:coverage` | Generate test coverage report             |
 
-## Build
+## 🏗️ Tech Stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Angular 18** - Signals, Standalone Components, OnPush Change Detection
+- **TypeScript** - Full type safety
+- **Angular CDK** - Virtual scrolling
+- **Web Workers** - Parallel computation
+- **RxJS** - HTTP and async operations
+- **SCSS** - Theming and styling
 
-## Running unit tests
+### Project Structure
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```
+src/app/
+├── components/         # UI components
+├── services/          # Business logic (users, grouping, stats, toast)
+├── workers/           # Web Worker for grouping
+├── models/            # TypeScript interfaces
+└── styles/            # Global styles and theme
+```
 
-## Running end-to-end tests
+## 📖 Usage
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Grouping
 
-## Further help
+Click the grouping buttons in the header to organize users by:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Alphabetical** (A-Z)
+- **Age Ranges** (18-25, 26-35, 36-45, 46-55, 56-65, 66+)
+- **Nationality** (by country)
+
+### Searching & Filtering
+
+- **Search bar** - Filter by name, email, or username
+- **Gender dropdown** - Filter by gender
+- **Nationality dropdown** - Filter by country
+- All filters work together in real-time
+
+### Other Features
+
+- **Expandable Cards** - Click any user card to see full details
+- **Dark Mode** - Toggle theme with the switch in header (auto-detects system preference)
+- **Pagination Toggle** - Switch between virtual scroll and traditional pagination
+
+## 🧪 Testing
+
+```bash
+npm test                # Run all tests
+npm run test:watch      # Watch mode
+npm run test:coverage   # Generate coverage report
+```
+
+## 🌐 Browser Support
+
+- Chrome/Edge 90+
+- Firefox 88+
+- Safari 14+
+- Modern mobile browsers
+
+---
+
+**Built with Angular 18 and modern web performance techniques** 🚀

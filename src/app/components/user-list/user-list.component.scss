@@ -1,14 +1,196 @@
-@import 'ease/ease-import.scss';
+@import "ease/ease-import.scss";
 
 :host {
   .user-list {
-    background-color: $color-white;
-    border-radius: 18px;
-    border: 6px solid $color-sky;
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    max-width: 60%;
-    padding: 12px;
+    width: 100%;
+    max-width: 1400px;
+    padding: 0 $spacing-xl;
+    animation: fadeIn 0.3s ease-in;
+    box-sizing: border-box;
+
+    @media (max-width: $m) {
+      padding: 0 $spacing-m;
+    }
+
+    @media (max-width: $s) {
+      padding: 0 $spacing-l;
+    }
+
+    .viewport {
+      height: calc(100vh - 220px);
+      min-height: 600px;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
+
+      &.hide-scrollbar {
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+
+      @media (max-width: $m) {
+        height: calc(100vh - 260px);
+      }
+      @media (max-width: $s) {
+        height: calc(100vh - 240px);
+      }
+    }
+
+    &.paginated-flow {
+      .paginated-container {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding-bottom: $spacing-xl;
+      }
+
+      .group-header-section {
+        margin-top: $spacing-xl;
+      }
+
+      .cards-row {
+        padding-bottom: $spacing-xxl;
+      }
+    }
+
+    .virtual-row {
+      display: block;
+
+      &:has(.group-header-section) {
+        min-height: auto;
+      }
+
+      &:has(.cards-row) {
+        min-height: 320px;
+      }
+    }
+
+    .group-header-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: $spacing-xl $spacing-l $spacing-m $spacing-l;
+      margin: $spacing-l 0;
+      border-bottom: 2px solid $color-fog;
+
+      @media (max-width: $m) {
+        padding: $spacing-l $spacing-m $spacing-m $spacing-m;
+      }
+
+      @media (max-width: $s) {
+        padding: $spacing-l 0 $spacing-m 0;
+        margin: $spacing-m 0;
+      }
+
+      .group-title {
+        font-size: $font-size-h2;
+        font-weight: $font-weight-bold;
+        color: $color-night;
+        margin: 0;
+
+        @media (max-width: $s) {
+          font-size: $font-size-h3;
+        }
+      }
+
+      .group-count {
+        font-size: $font-size-small;
+        font-weight: $font-weight-semi;
+        color: $color-steel;
+        background-color: $color-ice;
+        border-radius: $border-size-m;
+        padding: $spacing-xs $spacing-m;
+      }
+    }
+
+    .cards-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: $spacing-xl;
+      padding: 0 $spacing-l $spacing-xl $spacing-l;
+      box-sizing: border-box;
+      align-items: stretch;
+
+      > * {
+        min-width: 0;
+        min-height: 0;
+      }
+
+      @media (max-width: $l) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-l;
+      }
+
+      @media (max-width: $m) {
+        grid-template-columns: 1fr;
+        gap: $spacing-m;
+        padding: 0 $spacing-m $spacing-m $spacing-m;
+      }
+
+      @media (max-width: $s) {
+        padding: 0 $spacing-m $spacing-l $spacing-m;
+        gap: $spacing-l;
+      }
+    }
+
+    .loading-state,
+    .empty-state {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - 220px);
+      padding: $spacing-xxxl;
+      text-align: center;
+      color: $color-steel;
+
+      p {
+        font-size: $font-size-normal;
+        margin: 0;
+      }
+
+      .bounce {
+        font-size: $font-size-h1;
+        font-weight: $font-weight-semi;
+        margin: 0;
+        animation: bounce 2s infinite ease-in-out;
+
+        @media (max-width: $s) {
+          font-size: $font-size-h2;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
   }
 }

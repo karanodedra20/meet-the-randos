@@ -1,8 +1,10 @@
-# Meet the Randos 🎭
+# Meet the Randos 🎭 
 
 A high-performance Angular application for browsing and managing large user datasets (5000+ users) with advanced features like virtual scrolling, Web Worker-based grouping, real-time search, filtering, and dark mode.
 
 Built with Angular 18, TypeScript, and modern web technologies to demonstrate performance optimization techniques for handling large datasets in the browser.
+
+Live: https://meet-the-randos.netlify.app/
 
 ## ✨ Key Features
 
